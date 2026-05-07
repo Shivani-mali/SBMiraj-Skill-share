@@ -56,27 +56,5 @@ The original backend architecture of the project.
 * **Backend**: PHP.
 * **Database**: MySQL.
 
----
 
-## 🚀 Getting Started (Firebase Version)
-
-To run the main Firebase version of this application locally:
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Shivani-mali/SBMiraj-Skill-share.git
-   ```
-2. **Navigate to the directory:**
-   ```bash
-   cd SBMiraj-Skill-share
-   ```
-3. **Run a local server:**
-   Since this is a serverless frontend utilizing Firebase, you can simply run it using any live server extension (like VS Code Live Server) or a simple Python server:
-   ```bash
-   python -m http.server 8000
-   ```
-4. **Open in Browser:**
-   Navigate to `http://localhost:8000`
-
----
 *#Hackathon #Techpravartan2025 #Teamwork #Innovation #WebDevelopment #StudentProjects #LearningJourney #FirstPrize #Gratitude #SanjayBhokareInstitute*
