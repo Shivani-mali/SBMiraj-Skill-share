@@ -1,0 +1,109 @@
+/* Global aesthetic theme for Skill Share
+   - Uses Inter font
+   - Soft card shadows, comfortable spacing, gentle accent color
+   - Responsive utilities for truncation and containers
+*/
+:root{
+    --bg:#0f1724; /* deep slate */
+    --card:#0b1220; /* darker card */
+    --muted:#9aa4b2;
+    --accent:#6ee7b7; /* soft mint */
+    --accent-2:#60a5fa; /* soft blue */
+    --glass: rgba(255,255,255,0.03);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(180deg,#071026 0%, #071a2a 100%);color:#e6eef6}
+a{color:var(--accent-2);text-decoration:none}
+.container{max-width:1100px;margin-left:auto;margin-right:auto}
+
+/* Navbar tweaks */
+.navbar{
+    background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.navbar-brand{font-weight:700;color:#fff}
+.navbar .nav-link{color:var(--muted)}
+.navbar .nav-link.active{color:#fff;font-weight:600}
+
+/* Cards and list-group */
+.card, .list-group-item{background:linear-gradient(180deg,var(--card), #061020);border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 18px rgba(2,6,23,0.6);color:inherit}
+.list-group-item{transition:transform .12s ease,box-shadow .12s ease}
+.list-group-item:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(2,6,23,0.6)}
+
+/* Headings */
+h1,h2,h3{color:#fff}
+h1{font-size:1.9rem;margin-bottom:0.6rem}
+
+/* Buttons */
+.btn-accent{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042027;font-weight:700;border:none}
+.btn-accent:hover{filter:brightness(.98);transform:translateY(-1px)}
+
+/* Form inputs: make inputs white background and dark text for readability */
+.form-control{background:#ffffff;border:1px solid rgba(2,6,23,0.08);color:#0b1220;border-radius:.5rem;padding:.6rem .75rem}
+.form-control::placeholder{color:#6b7280} /* darker grey placeholder */
+.form-control:focus{outline:none;box-shadow:0 0 0 0.12rem rgba(96,165,250,0.12);border-color:rgba(96,165,250,0.6);color:#0b1220}
+
+/* Ensure selects and textareas match */
+select.form-control, textarea.form-control{background:#ffffff;color:#0b1220}
+
+/* Small utilities */
+.text-truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.small{color:var(--muted)}
+
+/* Footer */
+footer{opacity:0.9;color:var(--muted);padding:2rem 0;border-top:1px solid rgba(255,255,255,0.02)}
+
+/* Responsive tweaks */
+@media (max-width:768px){
+    .container{padding:0 1rem}
+    h1{font-size:1.4rem}
+}
+
+/* Hero and utility styles */
+.hero{
+        padding:3.5rem 0;
+}
+.hero-large{padding:5.5rem 0 6.5rem}
+.hero-title{font-size:3.1rem}
+.hero-lead{font-size:1.15rem;color:#cfe9ee;max-width:40rem}
+
+.categories .category-card{background:linear-gradient(180deg,#071022, #061624);border-radius:.75rem;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+.category-icon{width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:#042027;font-size:1.4rem;margin-bottom:.75rem}
+.section-title{font-size:1.5rem;margin-bottom:.75rem}
+.about-us .card{background:linear-gradient(180deg,#081426,#061224);border-radius:.8rem}
+
+/* Category card description color: use muted so it is readable against the card background */
+.category-card p { color: var(--muted); }
+
+@media (max-width:768px){
+    .hero-large{padding:3rem 0}
+    .hero-title{font-size:2rem}
+    .hero-lead{max-width:100%}
+    .navbar .form-control{min-width:120px}
+}
+
+/* Make main section descriptive text pure white for better contrast */
+main.container, main.container p, main.container .lead, main.container .card-text {
+    color: #ffffff;
+}
+.hero .card{
+    border-radius:1rem;
+    overflow:hidden;
+}
+.feature-box{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:1.25rem;border-radius:.75rem;border:1px solid rgba(255,255,255,0.03)}
+
+/* Navbar dark tweaks to override bootstrap defaults */
+.navbar{background:transparent}
+.navbar .navbar-brand{color:#fff;letter-spacing:0.6px}
+.navbar .form-control{min-width:220px}
+.navbar .btn-outline-light{border-color:rgba(255,255,255,0.08);color:var(--muted)}
+.navbar .btn-light{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042027}
+
+/* Profile card */
+.profile-header{display:flex;gap:1.25rem;align-items:center}
+.profile-avatar{width:160px;height:160px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,0.04)}
+
+/* Utility spacing for compact areas */
+.compact .card-body{padding:.75rem}

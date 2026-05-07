@@ -6,7 +6,6 @@ $user = getCurrentUser();
 if (!$user) redirect('/login.php');
 
 $pageTitle = 'Edit Profile';
-$baseUrl = '/';
 include __DIR__ . '/templates/header.php';
 include __DIR__ . '/templates/navbar.php';
 
@@ -56,39 +55,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-<div class="container mt-4">
-  <h1>Edit Profile</h1>
-  <?php if (!empty($errors)): ?>
-    <div class="alert alert-danger"><?php echo implode('<br>', array_map('htmlspecialchars', $errors)); ?></div>
-  <?php endif; ?>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="mb-3">Edit Profile</h2>
+          <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger"><?php echo implode('<br>', array_map('htmlspecialchars', $errors)); ?></div>
+          <?php endif; ?>
 
-  <form method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label class="form-label">Full name</label>
-      <input class="form-control" name="full_name" value="<?php echo htmlspecialchars($user['full_name']); ?>">
+          <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Full name</label>
+              <input class="form-control" name="full_name" value="<?php echo htmlspecialchars($user['full_name']); ?>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bio</label>
+              <textarea class="form-control" name="bio"><?php echo htmlspecialchars($user['bio']); ?></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <select name="category" class="form-select">
+                <option value="python" <?php if($user['category']==='python') echo 'selected'; ?>>Python</option>
+                <option value="java" <?php if($user['category']==='java') echo 'selected'; ?>>Java</option>
+                <option value="c" <?php if($user['category']==='c') echo 'selected'; ?>>C</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Google Classroom</label>
+              <input class="form-control" name="google_classroom" value="<?php echo htmlspecialchars($user['google_classroom']); ?>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Profile image</label>
+              <input class="form-control" type="file" name="profile_image" accept="image/*">
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-accent">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label class="form-label">Bio</label>
-      <textarea class="form-control" name="bio"><?php echo htmlspecialchars($user['bio']); ?></textarea>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Category</label>
-      <select name="category" class="form-select">
-        <option value="python" <?php if($user['category']==='python') echo 'selected'; ?>>Python</option>
-        <option value="java" <?php if($user['category']==='java') echo 'selected'; ?>>Java</option>
-        <option value="c" <?php if($user['category']==='c') echo 'selected'; ?>>C</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Google Classroom</label>
-      <input class="form-control" name="google_classroom" value="<?php echo htmlspecialchars($user['google_classroom']); ?>">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Profile image</label>
-      <input class="form-control" type="file" name="profile_image" accept="image/*">
-    </div>
-    <button class="btn btn-primary">Save</button>
-  </form>
+  </div>
 </div>
 
 <?php include __DIR__ . '/templates/footer.php'; ?>

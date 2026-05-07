@@ -2,7 +2,6 @@
 require_once __DIR__ . '/helpers.php';
 
 $pageTitle = 'Register';
-$baseUrl = '/';
 include __DIR__ . '/templates/header.php';
 include __DIR__ . '/templates/navbar.php';
 
@@ -68,47 +67,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-<div class="container mt-4">
-  <h1>Register</h1>
-  <?php if (!empty($errors)): ?>
-    <div class="alert alert-danger"><?php echo implode('<br>', array_map('htmlspecialchars', $errors)); ?></div>
-  <?php endif; ?>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="mb-3">Create an account</h2>
+          <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger"><?php echo implode('<br>', array_map('htmlspecialchars', $errors)); ?></div>
+          <?php endif; ?>
 
-  <form method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label class="form-label">Username</label>
-      <input class="form-control" name="username" required>
+          <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input class="form-control" name="username" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input class="form-control" name="password" type="password" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Full name</label>
+              <input class="form-control" name="full_name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bio</label>
+              <textarea class="form-control" name="bio"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <select name="category" class="form-select">
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="c">C</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Google Classroom (optional)</label>
+              <input class="form-control" name="google_classroom" placeholder="https://classroom.google.com/...">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Profile image (jpg/png)</label>
+              <input class="form-control" type="file" name="profile_image" accept="image/*">
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-accent" type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label class="form-label">Password</label>
-      <input class="form-control" name="password" type="password" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Full name</label>
-      <input class="form-control" name="full_name" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Bio</label>
-      <textarea class="form-control" name="bio"></textarea>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Category</label>
-      <select name="category" class="form-select">
-        <option value="python">Python</option>
-        <option value="java">Java</option>
-        <option value="c">C</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Google Classroom (optional)</label>
-      <input class="form-control" name="google_classroom" placeholder="https://classroom.google.com/...">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Profile image (jpg/png)</label>
-      <input class="form-control" type="file" name="profile_image" accept="image/*">
-    </div>
-    <button class="btn btn-primary" type="submit">Register</button>
-  </form>
+  </div>
 </div>
 
 <?php include __DIR__ . '/templates/footer.php'; ?>

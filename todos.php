@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'My Todos';
-$baseUrl = '/';
 include __DIR__ . '/templates/header.php';
 include __DIR__ . '/templates/navbar.php';
 
@@ -43,33 +42,39 @@ $todos = $stmt->fetchAll();
 
   <form method="post" class="mb-4">
     <input type="hidden" name="action" value="add">
-    <div class="mb-2">
-      <input class="form-control" name="title" placeholder="New task title" required>
+    <div class="row g-2">
+      <div class="col-md-6">
+        <input class="form-control" name="title" placeholder="New task title" required>
+      </div>
+      <div class="col-md-4">
+        <input class="form-control" name="due_date" type="datetime-local">
+      </div>
+      <div class="col-md-2 d-grid">
+        <button class="btn btn-accent">Add</button>
+      </div>
+      <div class="col-12 mt-2">
+        <textarea class="form-control" name="notes" placeholder="Notes (optional)"></textarea>
+      </div>
     </div>
-    <div class="mb-2">
-      <input class="form-control" name="due_date" type="datetime-local">
-    </div>
-    <div class="mb-2">
-      <textarea class="form-control" name="notes" placeholder="Notes (optional)"></textarea>
-    </div>
-    <button class="btn btn-primary">Add</button>
   </form>
 
-  <ul class="list-group">
+  <div class="list-group">
     <?php foreach ($todos as $t): ?>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="list-group-item d-flex justify-content-between align-items-start">
         <div>
-          <form method="post" style="display:inline-block; margin-right:8px;">
-            <input type="hidden" name="action" value="toggle">
-            <input type="hidden" name="id" value="<?php echo (int)$t['id']; ?>">
-            <button class="btn btn-sm <?php echo $t['is_done'] ? 'btn-success' : 'btn-outline-secondary'; ?>"><?php echo $t['is_done'] ? 'Done' : 'Mark'; ?></button>
-          </form>
-          <strong><?php echo htmlspecialchars($t['title']); ?></strong>
+          <div class="d-flex align-items-center mb-1">
+            <form method="post" style="display:inline-block; margin-right:8px;">
+              <input type="hidden" name="action" value="toggle">
+              <input type="hidden" name="id" value="<?php echo (int)$t['id']; ?>">
+              <button class="btn btn-sm <?php echo $t['is_done'] ? 'btn-success' : 'btn-outline-secondary'; ?>"><?php echo $t['is_done'] ? 'Done' : 'Mark'; ?></button>
+            </form>
+            <strong><?php echo htmlspecialchars($t['title']); ?></strong>
+          </div>
           <?php if ($t['due_date']): ?>
             <div class="small text-muted">Due: <?php echo htmlspecialchars($t['due_date']); ?></div>
           <?php endif; ?>
           <?php if ($t['notes']): ?>
-            <div class="small"><?php echo htmlspecialchars($t['notes']); ?></div>
+            <div class="small mt-1"><?php echo htmlspecialchars($t['notes']); ?></div>
           <?php endif; ?>
         </div>
         <div>
@@ -79,9 +84,9 @@ $todos = $stmt->fetchAll();
             <button class="btn btn-sm btn-danger">Delete</button>
           </form>
         </div>
-      </li>
+      </div>
     <?php endforeach; ?>
-  </ul>
+  </div>
 
 </div>
 

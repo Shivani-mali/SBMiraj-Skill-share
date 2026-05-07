@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Course to YouTube Channels</title>
+  <style>
+    body { font-family: Arial; padding: 40px; background: #f9f9f9; }
+    .courses { margin-bottom: 30px; }
+    .course-btn { margin: 8px; padding: 12px 24px; border-radius: 6px; border: none; background: #1976d2; color: #fff; font-size: 18px; cursor: pointer;}
+    .course-btn:hover { background: #0d47a1; }
+    .channels { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 20px; }
+    .channel { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 16px; width: 260px; text-align: center; }
+    .channel img { border-radius: 50%; width: 80px; height: 80px; }
+    .channel-title { font-size: 17px; font-weight: bold; margin: 10px 0 4px 0; }
+    .channel-link { color: #1976d2; text-decoration: none; font-size: 15px; }
+    .loading { font-size: 18px; color: #888; margin-top: 18px;}
+  </style>
+</head>
+<body>
+  <h1>Find YouTube Channels For Your Course</h1>
+  <div class="courses">
+    <button class="course-btn" onclick="searchYouTubeChannels('JavaScript')">JavaScript</button>
+    <button class="course-btn" onclick="searchYouTubeChannels('Python programming')">Python Programming</button>
+    <button class="course-btn" onclick="searchYouTubeChannels('Data Science')">Data Science</button>
+    <button class="course-btn" onclick="searchYouTubeChannels('Machine Learning')">Machine Learning</button>
+    <button class="course-btn" onclick="searchYouTubeChannels('Web Development')">Web Development</button>
+    <!-- Add more courses as needed -->
+  </div>
+  <div id="channels" class="channels"></div>
+  <div id="loading" class="loading"></div>
+
+  <script>
+    const API_KEY = 'AIzaSyAYbZjPRdRdi3DXf0daf0dojVUB8tpod1Q'; // <-- Put your YouTube API key here
+
+    async function searchYouTubeChannels(query) {
+      document.getElementById('channels').innerHTML = '';
+      document.getElementById('loading').textContent = "Loading...";
+
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(query)}&maxResults=8&key=${API_KEY}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.error) {
+          document.getElementById('loading').textContent = "Error: " + data.error.message;
+          return;
+        }
+        document.getElementById('loading').textContent = "";
+        const channelsDiv = document.getElementById('channels');
+        channelsDiv.innerHTML = '';
+
+        if (data.items.length === 0) {
+          channelsDiv.innerHTML = "<div>No channels found.</div>";
+        }
+
+        data.items.forEach(item => {
+          const channel = item.snippet;
+          const channelId = item.snippet.channelId;
+          const html = `
+            <div class="channel">
+              <a href="https://www.youtube.com/channel/${channelId}" target="_blank">
+                <img src="${channel.thumbnails.default.url}" alt="Channel Thumbnail">
+                <div class="channel-title">${channel.channelTitle}</div>
+              </a>
+              <div>${channel.description.substring(0, 80)}...</div>
+              <a class="channel-link" href="https://www.youtube.com/channel/${channelId}" target="_blank">Visit Channel</a>
+            </div>
+          `;
+          channelsDiv.innerHTML += html;
+        });
+      } catch (err) {
+        document.getElementById('loading').textContent = "Network or API Error.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -8,11 +8,13 @@
  */
 
 if (!isset($pageTitle)) {
-	$pageTitle = '';
+    $pageTitle = '';
 }
+// Auto-detect a sensible base URL (root-relative) so the project works in a subfolder.
 if (!isset($baseUrl)) {
-	// Derive a safe base URL (root-relative) if not provided
-	$baseUrl = '/';
+    $scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+    // If the site is at the webroot, keep '/'
+    $baseUrl = ($scriptDir === '' || $scriptDir === '/' || $scriptDir === '.') ? '/' : $scriptDir;
 }
 ?>
 <!doctype html>
@@ -29,12 +31,17 @@ if (!isset($baseUrl)) {
 	<link rel="icon" href="<?php echo rtrim($baseUrl, '/'); ?>/assets/images/favicon.ico" type="image/x-icon">
 
 	<!-- Bootstrap 5 CSS (CDN) -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUa6mY5n3o2Q2Y3V5QZ6m0b8L1QZ2e1Z6k1Yk1r1e1Yk1r1e1Yk1r1e1Yk1" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Optional: Bootstrap Icons -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-	<!-- Local stylesheet (create assets/css/style.css if you need custom styles) -->
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+	<!-- Local stylesheet (global theme) -->
 	<link rel="stylesheet" href="<?php echo rtrim($baseUrl, '/'); ?>/assets/css/style.css">
 
 	<!-- Meta for theme color on mobile -->

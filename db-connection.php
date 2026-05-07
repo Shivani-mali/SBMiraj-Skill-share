@@ -50,8 +50,8 @@ function getPDO()
 function searchProfiles(string $term, int $limit = 50): array
 {
     $pdo = getPDO();
-    $sql = "SELECT id, full_name, username, email, bio FROM users
-            WHERE full_name LIKE :q OR username LIKE :q OR email LIKE :q
+    $sql = "SELECT id, full_name, username, bio FROM users
+            WHERE full_name LIKE :q OR username LIKE :q
             LIMIT :limit";
 
     $stmt = $pdo->prepare($sql);
